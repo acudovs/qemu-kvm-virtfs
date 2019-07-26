@@ -1,0 +1,44 @@
+#!/bin/bash
+
+set -e
+
+yum -y update
+
+yum -y install \
+    "@Development Tools" \
+    centos-release-qemu-ev \
+    glusterfs-api-devel \
+    glusterfs-devel \
+    iasl \
+    kernel-devel \
+    libcacard-devel \
+    libepoxy-devel \
+    mesa-libgbm-devel \
+    nss-devel \
+    spice-protocol \
+    spice-server-devel \
+    usbredir-devel
+
+cat << EOF >> /etc/yum.repos.d/CentOS-QEMU-EV.repo
+[centos-qemu-ev-source]
+name=CentOS-\$releasever - QEMU EV Sources
+baseurl=http://vault.centos.org/centos/\$releasever/virt/Source/kvm-common/
+gpgcheck=1
+enabled=0
+gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-SIG-Virtualization
+EOF
+
+yum-builddep -y qemu-kvm-ev
+
+yumdownloader --source qemu-kvm-ev
+
+rpm -Uvh qemu-kvm-ev-*.src.rpm
+
+sed -i 's/--disable-virtfs/--enable-virtfs/' /root/rpmbuild/SOURCES/build_configure.sh
+
+sed -i -e '/^%files -n qemu-kvm-common/,/^$/s/^$/%{_bindir}\/virtfs-proxy-helper\n%{_mandir}\/man1\/virtfs-proxy-helper.1.gz\n/' \
+    -e '/^%if %{rhev}$/,/^%else$/s/pkgsuffix -ev/pkgsuffix -virtfs/' \
+    -e '/%define rhel_rhev_conflicts()/ a Provides: %1-ev = %{epoch}:%{version}-%{release} \\\nObsoletes: %1-ev < %{obsoletes_version} \\' \
+    /root/rpmbuild/SPECS/qemu-kvm.spec
+
+rpmbuild -ba --clean /root/rpmbuild/SPECS/qemu-kvm.spec
