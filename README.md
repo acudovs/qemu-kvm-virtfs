@@ -48,13 +48,13 @@ systemctl restart libvirtd
 ## Download the latest CentOS 7 cloud image and create a guest disk image
 
 ```
-curl https://cloud.centos.org/centos/7/images/CentOS-7-x86_64-GenericCloud-1905.qcow2 \
-    -o /var/lib/libvirt/images/CentOS-7-x86_64-GenericCloud-1905.qcow2
+curl https://cloud.centos.org/centos/7/images/CentOS-7-x86_64-GenericCloud-1907.qcow2 \
+    -o /var/lib/libvirt/images/CentOS-7-x86_64-GenericCloud-1907.qcow2
 
-qemu-img resize /var/lib/libvirt/images/CentOS-7-x86_64-GenericCloud-1905.qcow2 10G
+qemu-img resize /var/lib/libvirt/images/CentOS-7-x86_64-GenericCloud-1907.qcow2 10G
 
 qemu-img convert -O qcow2 -o preallocation=falloc \
-    /var/lib/libvirt/images/CentOS-7-x86_64-GenericCloud-1905.qcow2 \
+    /var/lib/libvirt/images/CentOS-7-x86_64-GenericCloud-1907.qcow2 \
     /var/lib/libvirt/images/centos7.localhost.qcow2
 ```
 
