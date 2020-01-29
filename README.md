@@ -82,8 +82,8 @@ runcmd:
   - reboot
 EOF
 
-cloud-localds /var/lib/libvirt/images/centos7.localhost.iso \
-    cloud-init/user-data cloud-init/meta-data
+genisoimage -input-charset utf-8 -joliet -rock -volid cidata \
+    -output /var/lib/libvirt/images/centos7.localhost.iso cloud-init
 ```
 
 ## Create a folder to share with the guest
