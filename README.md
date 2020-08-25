@@ -54,7 +54,7 @@ curl https://cloud.centos.org/centos/7/images/CentOS-7-x86_64-GenericCloud-2003.
 qemu-img resize /var/lib/libvirt/images/CentOS-7-x86_64-GenericCloud-2003.qcow2 10G
 
 qemu-img convert -O qcow2 -o preallocation=falloc \
-    lvar/lib/libvirt/images/CentOS-7-x86_64-GenericCloud-2003.qcow2 \
+    /var/lib/libvirt/images/CentOS-7-x86_64-GenericCloud-2003.qcow2 \
     /var/lib/libvirt/images/centos7.localhost.qcow2
 ```
 
