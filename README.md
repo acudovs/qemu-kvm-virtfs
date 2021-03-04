@@ -1,5 +1,7 @@
 # VirtFS 9P filesystem passthrough in CentOS 7
 
+> Latest testing on CentOS 7.9.2009
+
 This document details the steps for setting up VirtFS 9P "virtio-9pfs" (Plan 9 folder sharing over Virtio - I/O virtualization framework) filesystem passthrough between CentOS 7 guest and CentOS 7 host operating systems.
 
 ## Rebuild QEMU packages with VirtFS support
