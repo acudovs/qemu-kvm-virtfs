@@ -22,7 +22,7 @@ yum -y install \
 cat << EOF >> /etc/yum.repos.d/CentOS-QEMU-EV.repo
 [centos-qemu-ev-source]
 name=CentOS-\$releasever - QEMU EV Sources
-baseurl=https://archive.kernel.org/centos-vault/centos/\$releasever/virt/Source/kvm-common/
+baseurl=https://mirrors.tripadvisor.com/centos-vault/centos/\$releasever/virt/Source/kvm-common/
 gpgcheck=1
 enabled=0
 gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-SIG-Virtualization
